@@ -147,7 +147,35 @@ tr.empty td { text-align: center; color: var(--muted); padding: 24px; }
 .bar { background: var(--primary); height: 100%; border-radius: 4px; transition: width .3s ease; }
 .bar-value { text-align: right; font-size: .9rem; font-variant-numeric: tabular-nums; }
 
+.about { margin-top: 40px; }
+.about h2 { font-size: 1.4rem; }
+.about-intro { color: var(--muted); max-width: 760px; margin: 0 0 20px; }
+.use-cases {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+.use-cases h3, .integrate h3 { margin: 0 0 6px; font-size: 1rem; }
+.use-cases p { margin: 0; color: var(--muted); font-size: .95rem; }
+.integrate p { margin: 0 0 12px; color: var(--muted); }
+.integrate pre {
+  margin: 0 0 12px;
+  padding: 12px 14px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow-x: auto;
+  font-size: .85rem;
+  line-height: 1.6;
+}
+.integrate a { color: var(--primary); font-weight: 600; }
+.integrate-links { font-size: .9rem; }
+
 .site-footer {
+  margin-top: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -180,6 +208,8 @@ tr.empty td { text-align: center; color: var(--muted); padding: 24px; }
   .table-wrapper { max-height: 60vh; }
   th, td { padding: 8px 10px; }
   .bar-row { grid-template-columns: minmax(0, 38%) 1fr auto; }
+  .about { margin-top: 32px; }
+  .integrate pre { font-size: .78rem; }
 }
 
 @media (max-width: 400px) {

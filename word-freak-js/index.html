@@ -75,6 +75,53 @@
         </div>
       </div>
     </section>
+
+    <section class="about" aria-labelledby="about-title">
+      <h2 id="about-title">Para que serve</h2>
+      <p class="about-intro">
+        Saber quais palavras se repetem revela o foco de um texto, vícios de escrita e os termos
+        que realmente importam. O Contador de palavras faz parte do <strong>cinto de utilitários</strong>
+        da Mantis.dev.br: ferramentas livres e gratuitas para uso geral da comunidade.
+      </p>
+
+      <ul class="use-cases">
+        <li class="card">
+          <h3>Revisão de textos</h3>
+          <p>Encontre palavras repetidas demais em redações, artigos, posts e e-mails antes de publicar.</p>
+        </li>
+        <li class="card">
+          <h3>SEO e marketing</h3>
+          <p>Confira a densidade de palavras-chave de uma página ou de um texto de campanha.</p>
+        </li>
+        <li class="card">
+          <h3>Estudos e pesquisa</h3>
+          <p>Analise o vocabulário de discursos, entrevistas e respostas abertas de questionários.</p>
+        </li>
+        <li class="card">
+          <h3>Dados e programação</h3>
+          <p>Identifique os termos mais comuns em logs, comentários, avaliações de clientes ou respostas de API.</p>
+        </li>
+      </ul>
+
+      <div class="card integrate">
+        <h3>Use no seu projeto</h3>
+        <p>
+          A lógica está disponível como uma biblioteca JavaScript sem dependências (cerca de 1 KB).
+          Uma chamada devolve a contagem, os grupos de palavras por frequência e os dados prontos para
+          gráficos como Chart.js ou ApexCharts. Funciona no navegador e no Node.js, e o app inteiro
+          também pode ser embutido em outro site.
+        </p>
+<pre><code>&lt;script src="https://cdn.jsdelivr.net/gh/mantis-dev-br/ferramentas-utilitarias@main/word-freak-js/js/wordFrequency.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  const { frequencies, clusters, chart } = WordFrequency.analyze(texto);
+&lt;/script&gt;</code></pre>
+        <p class="integrate-links">
+          <a href="https://github.com/mantis-dev-br/ferramentas-utilitarias/tree/main/word-freak-js#como-importar-em-outros-sites"
+            target="_blank" rel="noopener">Ver exemplos e documentação</a>
+          · Licença MIT, livre para uso pessoal e comercial.
+        </p>
+      </div>
+    </section>
   </main>
 
   <footer class="site-footer">
