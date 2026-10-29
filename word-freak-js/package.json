@@ -2,6 +2,8 @@
   "name": "word-frequency",
   "version": "1.0.0",
   "description": "Conta a frequência de palavras em um bloco de texto.",
+  "license": "MIT",
+  "author": "Willian Rocha (Mantis.dev.br)",
   "private": true,
   "scripts": {
     "build": "npm run build:logic && npm run build:app",
