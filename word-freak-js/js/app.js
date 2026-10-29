@@ -13,6 +13,7 @@
   const summary = document.getElementById('summary');
   const tableBody = document.getElementById('frequency-body');
   const chart = document.getElementById('chart');
+  const results = document.getElementById('results');
   const urlForm = document.getElementById('url-form');
   const urlInput = document.getElementById('url-input');
   const urlButton = document.getElementById('url-button');
@@ -111,6 +112,12 @@
       `${frequencies.length} única${frequencies.length === 1 ? '' : 's'}.`;
     renderTable(frequencies);
     renderChart(frequencies);
+
+    // On narrow screens the results are below the fold.
+    if (window.matchMedia('(max-width: 720px)').matches) {
+      textInput.blur();
+      results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }
 
   async function loadFromUrl() {
