@@ -34,9 +34,9 @@ e outras tecnologias, conforme o que fizer mais sentido para cada problema.
 
 ## Ferramentas
 
-| Ferramenta | Pasta | Tecnologia | Descrição |
+| Ferramenta | Demonstração | Tecnologia | Descrição |
 |---|---|---|---|
-| [**Contador de palavras**](word-freak-js/) | [`word-freak-js/`](word-freak-js/) | JavaScript, HTML, CSS | Conta quantas vezes cada palavra aparece em um texto (ou em uma página web) e mostra o resultado em tabela e gráfico. Também funciona como biblioteca: `WordFrequency.analyze(texto)` devolve a contagem, os grupos de palavras por frequência e os dados prontos para gráficos. |
+| [**Contador de palavras**](word-freak-js/) | [Abrir](https://mantis-dev-br.github.io/ferramentas-utilitarias/word-freak-js/) | JavaScript, HTML, CSS | Conta quantas vezes cada palavra aparece em um texto (ou em uma página web) e mostra o resultado em tabela e gráfico. Também funciona como biblioteca: `WordFrequency.analyze(texto)` devolve a contagem, os grupos de palavras por frequência e os dados prontos para gráficos. |
 
 Cada pasta tem seu próprio README com instruções de uso e de integração.
 

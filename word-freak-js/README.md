@@ -9,6 +9,10 @@
   Parte do <strong>cinto de utilitários</strong> da <a href="https://mantis.dev.br">Mantis.dev.br</a>, ferramentas livres para uso geral da comunidade.
 </p>
 
+<p align="center">
+  <a href="https://mantis-dev-br.github.io/ferramentas-utilitarias/word-freak-js/"><strong>Abrir a demonstração online</strong></a>
+</p>
+
 ---
 
 ## Para que serve
@@ -37,7 +41,8 @@ O utilitário pode ser usado de duas formas:
 
 ## Como usar o app
 
-Baixe ou clone o repositório e abra `word-freak-js/index.html` no navegador. Não precisa de servidor nem de instalação.
+Use direto pela [demonstração online](https://mantis-dev-br.github.io/ferramentas-utilitarias/word-freak-js/), ou baixe/clone o repositório e abra
+`word-freak-js/index.html` no navegador. Não precisa de servidor nem de instalação.
 
 ```bash
 git clone https://github.com/mantis-dev-br/ferramentas-utilitarias.git
@@ -153,11 +158,11 @@ console.log('Palavras que aparecem uma vez só:', clusters.at(-1).words);
 
 ### 4. App completo embutido (iframe)
 
-Hospede a pasta `word-freak-js/` no seu servidor (ou em qualquer hospedagem estática, como GitHub
-Pages ou Netlify) e incorpore com um `iframe`:
+Incorpore a versão hospedada no GitHub Pages com um `iframe` (ou hospede a pasta `word-freak-js/`
+no seu próprio servidor e troque o endereço):
 
 ```html
-<iframe src="/ferramentas/word-freak-js/index.html"
+<iframe src="https://mantis-dev-br.github.io/ferramentas-utilitarias/word-freak-js/"
         title="Contador de palavras"
         style="width: 100%; height: 900px; border: 0;"
         loading="lazy"></iframe>
@@ -193,6 +198,16 @@ direta de páginas de outros sites.
 
 Sugestões e correções são bem-vindas: abra uma *issue* ou um *pull request* no
 [repositório](https://github.com/mantis-dev-br/ferramentas-utilitarias).
+
+O código-fonte fica em `js/wordFrequency.js` (lógica, sem DOM) e `js/app.js` (interface). A página
+carrega as versões minificadas, então, depois de editar:
+
+```bash
+cd word-freak-js
+npm install      # instala o terser (minificador)
+npm test         # testes da lógica (node --test)
+npm run build    # regera js/*.min.js — inclua os .min.js no commit
+```
 
 ## Licença
 
