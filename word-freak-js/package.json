@@ -4,10 +4,16 @@
   "description": "Conta a frequência de palavras em um bloco de texto.",
   "private": true,
   "scripts": {
+    "build": "npm run build:logic && npm run build:app",
+    "build:logic": "terser js/wordFrequency.js -c -m --comments false -o js/wordFrequency.min.js",
+    "build:app": "terser js/app.js -c -m --comments false -o js/app.min.js",
     "test": "node --test tests/",
     "start": "python3 -m http.server 8080"
   },
   "engines": {
     "node": ">=18"
+  },
+  "devDependencies": {
+    "terser": "^5.51.2"
   }
 }
