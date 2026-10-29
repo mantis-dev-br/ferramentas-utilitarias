@@ -1,0 +1,13 @@
+{
+  "name": "word-frequency",
+  "version": "1.0.0",
+  "description": "Conta a frequência de palavras em um bloco de texto.",
+  "private": true,
+  "scripts": {
+    "test": "node --test tests/",
+    "start": "python3 -m http.server 8080"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

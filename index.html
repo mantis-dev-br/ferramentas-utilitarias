@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Word Frequency</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <main class="container">
+    <header>
+      <h1>Word Frequency</h1>
+      <p class="subtitle">Conte quantas vezes cada palavra aparece no seu texto.</p>
+    </header>
+
+    <section class="card">
+      <form id="url-form" class="url-form" novalidate>
+        <label for="url-input">Carregar texto de uma página web (opcional)</label>
+        <div class="url-row">
+          <input id="url-input" type="url" placeholder="https://exemplo.com/artigo">
+          <button id="url-button" type="submit" class="secondary">Carregar URL</button>
+        </div>
+      </form>
+
+      <form id="text-form" novalidate>
+        <label for="text-input">Texto</label>
+        <textarea id="text-input" rows="10" maxlength="2048"
+          placeholder="Digite ou cole seu texto aqui (máximo de 2048 caracteres)..."></textarea>
+        <div class="form-footer">
+          <span id="char-count" class="char-count" aria-live="polite">0 / 2048</span>
+          <div class="actions">
+            <button id="clear-button" type="button" class="secondary">Limpar</button>
+            <button id="translate-button" type="submit">Translate</button>
+          </div>
+        </div>
+        <p id="message" class="message" role="alert" hidden></p>
+      </form>
+    </section>
+
+    <section class="results">
+      <div class="card">
+        <h2>Frequência das palavras</h2>
+        <p id="summary" class="summary">Nenhuma análise realizada ainda.</p>
+        <div class="table-wrapper">
+          <table id="frequency-table">
+            <thead>
+              <tr>
+                <th scope="col" class="num">#</th>
+                <th scope="col">Palavra</th>
+                <th scope="col" class="num">Frequência</th>
+              </tr>
+            </thead>
+            <tbody id="frequency-body">
+              <tr class="empty"><td colspan="3">A tabela aparecerá aqui.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Gráfico <small>(top 15)</small></h2>
+        <div id="chart" class="chart" aria-label="Gráfico de barras da frequência das palavras">
+          <p class="empty-chart">O gráfico aparecerá aqui.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/wordFrequency.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
