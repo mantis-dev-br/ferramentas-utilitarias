@@ -45,6 +45,11 @@
     rateInput: $('rate-input'),
     rateOutput: $('rate-output'),
     fontInput: $('font-input'),
+    fontDown: $('font-down'),
+    fontUp: $('font-up'),
+    fontLevel: $('font-level'),
+    contrastButton: $('contrast-button'),
+    presentButton: $('present-button'),
     fontOutput: $('font-output'),
     earconsInput: $('earcons-input'),
     announceInput: $('announce-input'),
@@ -64,6 +69,7 @@
     earcons: true,
     announce: true,
     settingsOpen: false,
+    theme: 'auto',
     ...store.loadPrefs(),
   };
 
@@ -91,6 +97,7 @@
   let loading = false;
   let seekTimer = null;
   let slowVoiceTimer = null;
+  let presenting = false;
 
   function safeLocalStorage() {
     try {
@@ -541,13 +548,96 @@
     else rateTimer = setTimeout(() => reader.setRate(rate), 300);
   }
 
+  const FONT_MIN = 100;
+  const FONT_MAX = 300;
+  const FONT_STEP = 20;
+
   function applyFontScale() {
-    const value = Math.min(200, Math.max(100, Number(els.fontInput.value) || 100));
+    const raw = Math.round(Number(els.fontInput.value) || FONT_MIN);
+    const value = Math.min(FONT_MAX, Math.max(FONT_MIN, raw));
     document.documentElement.style.setProperty('--text-scale', String(value / 100));
     els.fontOutput.textContent = `${value}%`;
+    els.fontLevel.textContent = `${value}%`;
     els.fontInput.setAttribute('aria-valuetext', `${value} por cento`);
+    els.fontDown.disabled = value <= FONT_MIN;
+    els.fontUp.disabled = value >= FONT_MAX;
     prefs.fontScale = value;
     store.savePrefs({ fontScale: value });
+    return value;
+  }
+
+  function changeFont(delta) {
+    els.fontInput.value = String(Number(els.fontInput.value) + delta);
+    const value = applyFontScale();
+    announce(`Texto em ${value} por cento`, true);
+    scrollToCurrent(true);
+  }
+
+  // ---- high contrast -------------------------------------------------------
+
+  function applyTheme() {
+    const contrast = prefs.theme === 'contrast';
+    if (contrast) document.documentElement.dataset.theme = 'contrast';
+    else delete document.documentElement.dataset.theme;
+    els.contrastButton.setAttribute('aria-pressed', String(contrast));
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.content = contrast ? '#000000' : '#4f46e5';
+  }
+
+  function toggleContrast() {
+    prefs.theme = prefs.theme === 'contrast' ? 'auto' : 'contrast';
+    store.savePrefs({ theme: prefs.theme });
+    applyTheme();
+    announce(prefs.theme === 'contrast' ? 'Alto contraste ativado' : 'Alto contraste desativado', true);
+  }
+
+  // ---- presentation (full screen) -----------------------------------------
+
+  /** Shows only the text, big, plus the player. Uses the Fullscreen API when
+   * available (not on iPhone), and works as a plain page mode otherwise. */
+  function enterPresentation() {
+    if (presenting) return;
+    if (!els.editor.hidden || !reader || !reader.getState().sentenceCount) {
+      if (!reader) return;
+      const text = els.textInput.value;
+      const error = TR.validateInput(text);
+      if (error) {
+        showMessage(error);
+        earcon('error');
+        return;
+      }
+      hideMessage();
+      if (text !== loadedText) loadText(text, 0);
+      showReading();
+    }
+    presenting = true;
+    document.body.classList.add('is-presenting');
+    els.presentButton.textContent = 'Sair da tela cheia';
+    els.presentButton.title = 'Sair da tela cheia (F ou Esc)';
+    const root = document.documentElement;
+    if (root.requestFullscreen && !document.fullscreenElement) {
+      root.requestFullscreen({ navigationUI: 'hide' }).catch(() => {});
+    }
+    announce('Tela cheia. Pressione F ou Esc para sair.', true);
+    requestAnimationFrame(() => scrollToCurrent(true));
+  }
+
+  function exitPresentation() {
+    if (!presenting) return;
+    presenting = false;
+    document.body.classList.remove('is-presenting');
+    els.presentButton.textContent = 'Tela cheia';
+    els.presentButton.title = 'Tela cheia (F)';
+    if (document.fullscreenElement && document.exitFullscreen) {
+      document.exitFullscreen().catch(() => {});
+    }
+    announce('Saiu da tela cheia', true);
+    requestAnimationFrame(() => scrollToCurrent(true));
+  }
+
+  function togglePresentation() {
+    if (presenting) exitPresentation();
+    else enterPresentation();
   }
 
   function toggleSettings(open) {
@@ -719,8 +809,17 @@
       changeRate(0.1);
     } else if (key === '-' || key === '_') {
       changeRate(-0.1);
+    } else if (key === ']') {
+      changeFont(FONT_STEP);
+    } else if (key === '[') {
+      changeFont(-FONT_STEP);
+    } else if (key === 'c' || key === 'C') {
+      toggleContrast();
+    } else if (key === 'f' || key === 'F') {
+      togglePresentation();
     } else if (key === 'Escape') {
-      stopReading();
+      if (presenting) exitPresentation();
+      else stopReading();
     } else {
       handled = false;
     }
@@ -754,7 +853,17 @@
     els.announceInput.checked = prefs.announce !== false;
     applyRate(false);
     applyFontScale();
+    applyTheme();
     toggleSettings(Boolean(prefs.settingsOpen));
+
+    els.fontDown.addEventListener('click', () => changeFont(-FONT_STEP));
+    els.fontUp.addEventListener('click', () => changeFont(FONT_STEP));
+    els.contrastButton.addEventListener('click', toggleContrast);
+    els.presentButton.addEventListener('click', togglePresentation);
+    // The browser leaves full screen on its own (Esc, gesture): follow it.
+    document.addEventListener('fullscreenchange', () => {
+      if (!document.fullscreenElement && presenting) exitPresentation();
+    });
 
     els.settingsButton.addEventListener('click', () => toggleSettings());
     els.rateInput.addEventListener('input', () => applyRate(false));
@@ -793,6 +902,7 @@
     els.sampleButton.addEventListener('click', playSample);
 
     els.editButton.addEventListener('click', () => {
+      exitPresentation();
       reader.pause();
       showEditor();
       els.textInput.focus();
@@ -868,6 +978,7 @@
       els.playButton.disabled = true;
       els.sampleButton.disabled = true;
       els.voiceSelect.disabled = true;
+      els.presentButton.disabled = true;
       offerResume();
       return;
     }

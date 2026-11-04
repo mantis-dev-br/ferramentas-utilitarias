@@ -40,6 +40,9 @@ Tudo é **gratuito**: usa a voz do próprio navegador, sem servidor, sem chave d
 - Indicador **"Aguardando a voz…"** quando uma voz online demora a responder (latência de rede).
 - **Retoma de onde parou**: o texto e a posição ficam salvos só no seu navegador.
 - Mantém a tela do celular ligada durante a leitura.
+- **Texto ampliável até 300%** com os botões A− e A+, sem perder o layout.
+- **Alto contraste**: fundo preto, texto amarelo e a frase atual em amarelo com letras pretas.
+- **Tela cheia** para apresentar o texto: só o texto, grande e centralizado, com os controles de leitura.
 - Layout responsivo (a partir de 320 px), tema escuro automático e suporte ao alto contraste do sistema.
 - Sem dependências: HTML, CSS e JavaScript puro.
 
@@ -56,7 +59,7 @@ O app foi pensado primeiro para quem não enxerga a tela:
 | Sem falas sobrepostas | O leitor de tela só ouve as mudanças de estado ("Lendo", "Pausado", "Leitura concluída"), nunca o texto que a voz do app está lendo. Os anúncios podem ser desligados. |
 | Sons de aviso | Tons curtos ao começar, pausar, parar, terminar e em caso de erro. Podem ser desligados. |
 | Título da aba | Mostra o estado ("▶ Frase 12/340"), útil ao alternar janelas. |
-| Baixa visão | Texto ampliável até 200%, contraste AA, alto contraste do sistema e zoom sem rolagem horizontal. |
+| Baixa visão | Texto ampliável até 300% (A− e A+), tema de alto contraste amarelo sobre preto, tela cheia com o texto grande, alto contraste do sistema e zoom sem rolagem horizontal. |
 
 ### Atalhos de teclado
 
@@ -72,7 +75,10 @@ modo de navegação, ative o modo de foco (no NVDA, <kbd>Insert</kbd> + <kbd>Esp
 | <kbd>R</kbd> | Repetir a frase atual |
 | <kbd>I</kbd> | Onde estou |
 | <kbd>+</kbd> e <kbd>-</kbd> | Aumentar e diminuir a velocidade |
-| <kbd>Esc</kbd> | Parar |
+| <kbd>]</kbd> e <kbd>[</kbd> | Aumentar e diminuir o texto |
+| <kbd>C</kbd> | Alto contraste (fundo preto, texto amarelo) |
+| <kbd>F</kbd> | Tela cheia (apresentação) |
+| <kbd>Esc</kbd> | Sair da tela cheia; fora dela, parar |
 
 ## Qual navegador e qual voz usar
 

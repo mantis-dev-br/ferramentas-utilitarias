@@ -34,8 +34,18 @@
       </div>
     </section>
 
-    <section class="card" aria-labelledby="text-title">
+    <section class="card text-card" aria-labelledby="text-title">
       <h2 id="text-title" class="visually-hidden">Texto</h2>
+
+      <div class="view-toolbar" aria-label="Visualização" role="group">
+        <div class="font-controls">
+          <button id="font-down" type="button" class="secondary" aria-label="Diminuir texto" title="Diminuir texto ([)">A−</button>
+          <span id="font-level" class="font-level" aria-hidden="true">100%</span>
+          <button id="font-up" type="button" class="secondary" aria-label="Aumentar texto" title="Aumentar texto (])">A+</button>
+        </div>
+        <button id="contrast-button" type="button" class="secondary" aria-pressed="false" title="Alto contraste (C)">Alto contraste</button>
+        <button id="present-button" type="button" class="secondary" title="Tela cheia (F)">Tela cheia</button>
+      </div>
 
       <div id="editor">
         <label for="text-input">Texto para ouvir</label>
@@ -80,7 +90,10 @@
             <tr><td><kbd>R</kbd></td><td>Repetir a frase atual</td></tr>
             <tr><td><kbd>I</kbd></td><td>Onde estou: frase, porcentagem e tempo restante</td></tr>
             <tr><td><kbd>+</kbd> e <kbd>-</kbd></td><td>Aumentar e diminuir a velocidade</td></tr>
-            <tr><td><kbd>Esc</kbd></td><td>Parar a leitura</td></tr>
+            <tr><td><kbd>]</kbd> e <kbd>[</kbd></td><td>Aumentar e diminuir o texto</td></tr>
+            <tr><td><kbd>C</kbd></td><td>Ligar e desligar o alto contraste (fundo preto, texto amarelo)</td></tr>
+            <tr><td><kbd>F</kbd></td><td>Entrar e sair da tela cheia (apresentação)</td></tr>
+            <tr><td><kbd>Esc</kbd></td><td>Sair da tela cheia; fora dela, parar a leitura</td></tr>
           </tbody>
         </table>
       </div>
@@ -96,7 +109,7 @@
       <ul class="use-cases">
         <li class="card">
           <h3>Acessibilidade</h3>
-          <p>Feito para pessoas cegas e com baixa visão: tudo pelo teclado, compatível com leitores de tela, sons de aviso e texto ampliável.</p>
+          <p>Feito para pessoas cegas e com baixa visão: tudo pelo teclado, compatível com leitores de tela, sons de aviso, texto ampliável até 300% e alto contraste amarelo sobre preto.</p>
         </li>
         <li class="card">
           <h3>Estudos</h3>
@@ -197,7 +210,7 @@
 
         <div class="field">
           <label for="font-input">Tamanho do texto <output id="font-output" for="font-input">100%</output></label>
-          <input id="font-input" type="range" min="100" max="200" step="10" value="100" aria-valuetext="100 por cento">
+          <input id="font-input" type="range" min="100" max="300" step="10" value="100" aria-valuetext="100 por cento">
         </div>
 
         <fieldset class="field options">

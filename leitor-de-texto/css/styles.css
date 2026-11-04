@@ -16,13 +16,42 @@
   --highlight-ring: #a5b4fc;
   --word: #c7d2fe;
   --focus: #4f46e5;
+  --highlight-text: var(--text);
+  --word-text: var(--text);
+  --read: var(--muted);
   --shadow: 0 -4px 16px rgb(31 35 48 / 0.08);
   --text-scale: 1;
   --player-height: 150px;
 }
 
+/* High contrast: black background, yellow text, inverted highlight. Chosen by
+   the user (C key / button); wins over the light/dark tokens by specificity. */
+:root[data-theme="contrast"] {
+  --bg: #000000;
+  --surface: #000000;
+  --text: #ffff00;
+  --muted: #ffff00;
+  --border: #ffff00;
+  --primary: #ffff00;
+  --primary-hover: #ffffff;
+  --primary-text: #000000;
+  --track: #3a3a00;
+  --error-bg: #000000;
+  --error-text: #ffffff;
+  --info-bg: #000000;
+  --info-text: #00ffff;
+  --highlight: #ffff00;
+  --highlight-text: #000000;
+  --highlight-ring: #ffffff;
+  --word: #00ffff;
+  --word-text: #000000;
+  --read: #d6d600;
+  --focus: #00ffff;
+  --shadow: none;
+}
+
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="contrast"]) {
     --bg: #12141b;
     --surface: #1b1e28;
     --text: #e7e9f0;
@@ -200,16 +229,72 @@ kbd {
   transition: background-color .15s ease, color .15s ease;
 }
 .sentence:hover { text-decoration: underline dotted var(--muted); text-underline-offset: 3px; }
-.sentence.is-read { color: var(--muted); }
+.sentence.is-read { color: var(--read); }
 .sentence.is-current {
   background: var(--highlight);
-  color: var(--text);
+  color: var(--highlight-text);
   box-shadow: 0 0 0 2px var(--highlight);
 }
 ::highlight(tr-word) {
   background-color: var(--word);
+  color: var(--word-text);
   text-decoration: underline 2px var(--primary);
 }
+
+/* ---- view toolbar: font size, contrast, full screen ---- */
+.view-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.font-controls { display: inline-flex; align-items: center; gap: 4px; margin-right: auto; }
+.font-controls button { min-width: 48px; padding: 6px 10px; font-size: 1.05rem; }
+.font-level { min-width: 5ch; text-align: center; color: var(--muted); font-variant-numeric: tabular-nums; }
+.view-toolbar button[aria-pressed="true"] { background: var(--primary); color: var(--primary-text); }
+
+/* ---- high contrast extras ---- */
+:root[data-theme="contrast"] a { color: var(--primary); text-decoration: underline; }
+:root[data-theme="contrast"] .card,
+:root[data-theme="contrast"] .player,
+:root[data-theme="contrast"] .message { border: 2px solid var(--border); }
+:root[data-theme="contrast"] button { border-width: 2px; }
+:root[data-theme="contrast"] .sentence.is-current { box-shadow: 0 0 0 3px var(--highlight); }
+:root[data-theme="contrast"] .sentence.is-current.is-waiting { animation: none; outline: 3px dashed var(--focus); outline-offset: 3px; }
+:root[data-theme="contrast"] .footer-logo { border: 2px solid var(--border); }
+
+/* ---- presentation (full screen): only the text, big, and the player ---- */
+body.is-presenting header,
+body.is-presenting .about,
+body.is-presenting .site-footer,
+body.is-presenting .resume,
+body.is-presenting .reading-label,
+body.is-presenting #edit-button,
+body.is-presenting .skip-link,
+body.is-presenting #settings,
+body.is-presenting .settings-toggle { display: none !important; }
+body.is-presenting .container { max-width: none; padding: 0 24px 24px; }
+/* !important: must win over the high-contrast card border. */
+body.is-presenting .text-card { border: 0 !important; border-radius: 0; background: var(--bg); padding: 0; }
+body.is-presenting .view-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: var(--bg);
+  padding: 12px 0;
+  max-width: 1040px;
+  margin: 0 auto 16px;
+}
+body.is-presenting .reader {
+  max-width: 40ch;
+  margin: 0 auto;
+  font-size: calc(2rem * var(--text-scale));
+  line-height: 1.6;
+}
+body.is-presenting .reading-actions { justify-content: center; }
 
 .reading-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
 
@@ -367,6 +452,11 @@ td:first-child { white-space: nowrap; }
   .card { padding: 16px; }
   textarea { min-height: 180px; }
   .reader { font-size: calc(1.0625rem * var(--text-scale)); }
+  body.is-presenting .container { padding: 0 16px 16px; }
+  body.is-presenting .reader { font-size: calc(1.5rem * var(--text-scale)); }
+  .view-toolbar { gap: 6px; }
+  .view-toolbar button { min-height: 44px; padding: 6px 12px; font-size: .95rem; }
+  .font-controls button { min-width: 44px; }
   .about { margin-top: 32px; }
   .integrate pre { font-size: .78rem; }
   .controls-row { flex-wrap: wrap; }
