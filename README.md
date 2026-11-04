@@ -13,7 +13,7 @@
 
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/licen%C3%A7a-MIT-4f46e5" alt="Licença MIT"></a>
-  <img src="https://img.shields.io/badge/ferramentas-1-4f46e5" alt="1 ferramenta">
+  <img src="https://img.shields.io/badge/ferramentas-2-4f46e5" alt="2 ferramentas">
 </p>
 
 ---
@@ -37,6 +37,7 @@ e outras tecnologias, conforme o que fizer mais sentido para cada problema.
 | Ferramenta | Demonstração | Tecnologia | Descrição |
 |---|---|---|---|
 | [**Contador de palavras**](word-freak-js/) | [Abrir](https://mantis-dev-br.github.io/ferramentas-utilitarias/word-freak-js/) | JavaScript, HTML, CSS | Conta quantas vezes cada palavra aparece em um texto (ou em uma página web) e mostra o resultado em tabela e gráfico. Também funciona como biblioteca: `WordFrequency.analyze(texto)` devolve a contagem, os grupos de palavras por frequência e os dados prontos para gráficos. |
+| [**Leitor de texto**](leitor-de-texto/) | [Abrir](https://mantis-dev-br.github.io/ferramentas-utilitarias/leitor-de-texto/) | JavaScript, HTML, CSS | Lê em voz alta qualquer texto colado, de qualquer tamanho, com a voz do próprio navegador e sem custo. Destaca a frase em leitura, permite pausar, avançar, voltar ou clicar numa frase para continuar dali e lembra onde a leitura parou. Acessível para pessoas cegas: funciona todo pelo teclado e com leitores de tela, com atalhos e sons de aviso. Também funciona como biblioteca: `TextReader.createReader()` adiciona o recurso "ouvir este texto" a qualquer site. |
 
 Cada pasta tem seu próprio README com instruções de uso e de integração.
 

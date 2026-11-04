@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#4f46e5">
+  <meta name="description" content="Cole qualquer texto e ouça em voz alta, com a frase em leitura destacada. Gratuito, acessível e sem cadastro.">
+  <meta name="author" content="Willian Rocha">
+  <meta name="publisher" content="Mantis.dev.br">
+  <meta name="copyright" content="Mantis.dev.br">
+  <meta property="og:site_name" content="Mantis.dev.br">
+  <meta property="og:title" content="Leitor de texto">
+  <meta property="og:description" content="Cole qualquer texto e ouça em voz alta, com a frase em leitura destacada.">
+  <meta property="og:type" content="website">
+  <title>Leitor de texto</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#player">Ir para os controles de leitura</a>
+
+  <main class="container" id="main">
+    <header>
+      <h1><img src="favicon.svg" alt="" class="logo" width="40" height="40">Leitor de texto</h1>
+      <p class="subtitle">Cole qualquer texto e ouça em voz alta. Gratuito, sem cadastro e feito para ser acessível.</p>
+    </header>
+
+    <section id="resume" class="card resume" aria-labelledby="resume-title" hidden>
+      <h2 id="resume-title">Continuar de onde parou?</h2>
+      <p id="resume-text"></p>
+      <div class="actions">
+        <button id="resume-continue" type="button">Continuar</button>
+        <button id="resume-restart" type="button" class="secondary">Começar do início</button>
+      </div>
+    </section>
+
+    <section class="card" aria-labelledby="text-title">
+      <h2 id="text-title" class="visually-hidden">Texto</h2>
+
+      <div id="editor">
+        <label for="text-input">Texto para ouvir</label>
+        <textarea id="text-input" rows="12" maxlength="500000" spellcheck="false"
+          aria-describedby="text-hint text-stats"
+          placeholder="Cole ou digite aqui o texto que você quer ouvir…"></textarea>
+        <p id="text-hint" class="hint">Dica: com o cursor na caixa de texto, <kbd>Ctrl</kbd> + <kbd>Enter</kbd> começa a leitura.</p>
+        <div class="form-footer">
+          <span id="text-stats" class="char-count">Nenhum texto ainda.</span>
+          <div class="actions">
+            <button id="paste-button" type="button" class="secondary" hidden>Colar</button>
+            <button id="clear-button" type="button" class="secondary">Limpar</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="reading" hidden>
+        <p class="reading-label" id="reader-label">Texto em leitura. A frase atual fica destacada; clique numa frase para ler a partir dela.</p>
+        <div id="reader" class="reader" lang="pt-BR" aria-labelledby="reader-label"></div>
+        <div class="reading-actions">
+          <button id="edit-button" type="button" class="secondary">Editar texto</button>
+          <button id="follow-button" type="button" class="secondary" hidden>Voltar para a frase atual</button>
+        </div>
+      </div>
+
+      <p id="message" class="message" role="alert" hidden></p>
+    </section>
+
+    <section class="about" aria-labelledby="shortcuts-title">
+      <h2 id="shortcuts-title">Atalhos de teclado</h2>
+      <p class="about-intro">Funcionam quando o foco não está numa caixa de texto ou num controle deslizante.
+        Com leitor de tela, use o modo de foco (no NVDA, <kbd>Insert</kbd> + <kbd>Espaço</kbd>) ou os botões dos controles.</p>
+      <div class="card table-card">
+        <table>
+          <caption class="visually-hidden">Atalhos de teclado</caption>
+          <thead><tr><th scope="col">Tecla</th><th scope="col">Ação</th></tr></thead>
+          <tbody>
+            <tr><td><kbd>Ctrl</kbd> + <kbd>Enter</kbd></td><td>Começar a ler (dentro da caixa de texto)</td></tr>
+            <tr><td><kbd>Espaço</kbd> ou <kbd>K</kbd></td><td>Ler, pausar e continuar</td></tr>
+            <tr><td><kbd>J</kbd> ou <kbd>←</kbd></td><td>Frase anterior</td></tr>
+            <tr><td><kbd>L</kbd> ou <kbd>→</kbd></td><td>Próxima frase</td></tr>
+            <tr><td><kbd>R</kbd></td><td>Repetir a frase atual</td></tr>
+            <tr><td><kbd>I</kbd></td><td>Onde estou: frase, porcentagem e tempo restante</td></tr>
+            <tr><td><kbd>+</kbd> e <kbd>-</kbd></td><td>Aumentar e diminuir a velocidade</td></tr>
+            <tr><td><kbd>Esc</kbd></td><td>Parar a leitura</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="about" aria-labelledby="about-title">
+      <h2 id="about-title">Para que serve</h2>
+      <p class="about-intro">
+        O Leitor de texto lê em voz alta textos de qualquer tamanho com a voz do seu próprio navegador,
+        sem cortes e sem custo. Faz parte do <strong>cinto de utilitários</strong> da Mantis.dev.br:
+        ferramentas livres e gratuitas para uso geral da comunidade.
+      </p>
+      <ul class="use-cases">
+        <li class="card">
+          <h3>Acessibilidade</h3>
+          <p>Feito para pessoas cegas e com baixa visão: tudo pelo teclado, compatível com leitores de tela, sons de aviso e texto ampliável.</p>
+        </li>
+        <li class="card">
+          <h3>Estudos</h3>
+          <p>Ouça apostilas, artigos e resumos enquanto faz outra coisa, acompanhando o destaque na tela.</p>
+        </li>
+        <li class="card">
+          <h3>Revisão de textos</h3>
+          <p>Ouvir o próprio texto revela repetições, frases longas demais e erros de ritmo.</p>
+        </li>
+        <li class="card">
+          <h3>Idiomas</h3>
+          <p>Escolha uma voz em inglês, espanhol ou outro idioma para ouvir a pronúncia de um texto.</p>
+        </li>
+      </ul>
+
+      <div class="card integrate">
+        <h3>Qual navegador usar</h3>
+        <p>
+          As vozes mais naturais e gratuitas estão no <strong>Microsoft Edge</strong> (vozes “Natural”) e no
+          <strong>Google Chrome</strong> (voz “Google português do Brasil”). No Firefox e no Linux, a qualidade
+          depende das vozes instaladas no sistema.
+        </p>
+        <h3>Privacidade</h3>
+        <p>
+          Este site não envia o seu texto a nenhum servidor. Mas as vozes marcadas como <strong>(online)</strong>
+          são geradas pela Google ou pela Microsoft, e o texto lido vai para os servidores delas. Para privacidade
+          total, escolha uma voz sem essa marca.
+        </p>
+        <h3>Use no seu projeto</h3>
+        <p>A biblioteca JavaScript, sem dependências, adiciona o recurso “ouvir este texto” a qualquer site.</p>
+<pre><code>&lt;script src="https://cdn.jsdelivr.net/gh/mantis-dev-br/ferramentas-utilitarias@main/leitor-de-texto/js/textReader.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  const leitor = TextReader.createReader();
+  leitor.load(document.querySelector('article').innerText);
+  leitor.play();
+&lt;/script&gt;</code></pre>
+        <p class="integrate-links">
+          <a href="https://github.com/mantis-dev-br/ferramentas-utilitarias/tree/main/leitor-de-texto#como-importar-em-outros-sites"
+            target="_blank" rel="noopener">Ver exemplos e documentação<span class="visually-hidden"> (abre em nova aba)</span></a>
+          · Licença MIT, livre para uso pessoal e comercial.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <img src="css/mantis_white_background.png" alt="Logo Mantis" class="footer-logo" width="48" height="48">
+    <p>&copy; 2026 <a href="https://mantis.dev.br" target="_blank" rel="noopener">Mantis.dev.br</a> &ndash; Sistemas de Visão Computacional</p>
+  </footer>
+
+  <section id="player" class="player" aria-labelledby="player-title" tabindex="-1">
+    <h2 id="player-title" class="visually-hidden">Controles de leitura</h2>
+    <div class="player-inner">
+      <div class="progress-row">
+        <label for="position" class="visually-hidden">Posição da leitura</label>
+        <input id="position" type="range" min="1" max="1" value="1" step="1" disabled aria-valuetext="Nenhum texto carregado">
+        <span id="position-text" class="position-text" aria-hidden="true">Frase 0 de 0</span>
+      </div>
+
+      <div class="controls-row">
+        <div class="transport">
+          <button id="prev-button" type="button" class="icon-button secondary" aria-label="Frase anterior" title="Frase anterior (J)" disabled>
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg>
+          </button>
+          <button id="play-button" type="button" class="play-button" title="Ler, pausar e continuar (Espaço)">
+            <svg id="icon-play" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 4v16l13-8z"/></svg>
+            <svg id="icon-pause" viewBox="0 0 24 24" aria-hidden="true" focusable="false" hidden><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+            <span id="play-label">Ler</span>
+          </button>
+          <button id="next-button" type="button" class="icon-button secondary" aria-label="Próxima frase" title="Próxima frase (L)" disabled>
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M16 5h2v14h-2zM4 5v14l11-7z"/></svg>
+          </button>
+          <button id="stop-button" type="button" class="icon-button secondary" aria-label="Parar" title="Parar (Esc)" disabled>
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6h12v12H6z"/></svg>
+          </button>
+        </div>
+        <span id="waiting" class="waiting" hidden><span class="spinner" aria-hidden="true"></span>Aguardando a voz…</span>
+        <span id="remaining" class="remaining" aria-hidden="true"></span>
+        <button id="settings-button" type="button" class="secondary settings-toggle" aria-expanded="false" aria-controls="settings">Ajustes</button>
+      </div>
+
+      <div id="settings" class="settings" hidden>
+        <div class="field field-voice">
+          <label for="voice-select">Voz</label>
+          <div class="voice-row">
+            <select id="voice-select" aria-describedby="voice-note">
+              <option value="">Carregando vozes…</option>
+            </select>
+            <button id="sample-button" type="button" class="secondary">Ouvir amostra</button>
+          </div>
+          <p id="voice-note" class="hint">Vozes marcadas como (online) enviam o texto aos servidores da Google ou da Microsoft para gerar o áudio.</p>
+        </div>
+
+        <div class="field">
+          <label for="rate-input">Velocidade <output id="rate-output" for="rate-input">1,0×</output></label>
+          <input id="rate-input" type="range" min="0.5" max="3" step="0.1" value="1" aria-valuetext="1,0 vezes">
+        </div>
+
+        <div class="field">
+          <label for="font-input">Tamanho do texto <output id="font-output" for="font-input">100%</output></label>
+          <input id="font-input" type="range" min="100" max="200" step="10" value="100" aria-valuetext="100 por cento">
+        </div>
+
+        <fieldset class="field options">
+          <legend>Avisos</legend>
+          <label class="check"><input id="earcons-input" type="checkbox" checked> Sons de aviso ao começar, pausar e terminar</label>
+          <label class="check"><input id="announce-input" type="checkbox" checked> Anunciar mudanças de estado ao leitor de tela</label>
+        </fieldset>
+
+        <div class="field">
+          <button id="forget-button" type="button" class="secondary">Esquecer texto salvo</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="announcer" class="visually-hidden" aria-live="polite" aria-atomic="true"></div>
+
+  <script src="js/textReader.min.js"></script>
+  <script src="js/app.min.js"></script>
+</body>
+</html>

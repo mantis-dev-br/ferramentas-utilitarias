@@ -1,0 +1,21 @@
+{
+  "name": "leitor-de-texto",
+  "version": "1.0.0",
+  "description": "Lê em voz alta textos de qualquer tamanho com a voz do navegador, destacando a frase em leitura.",
+  "license": "MIT",
+  "author": "Willian Rocha (Mantis.dev.br)",
+  "private": true,
+  "scripts": {
+    "build": "npm run build:lib && npm run build:app",
+    "build:lib": "terser js/emitter.js js/textSegmenter.js js/voiceCatalog.js js/progressStore.js js/speechEngine.js js/readerController.js -c -m --comments false -o js/textReader.min.js",
+    "build:app": "terser js/sampleText.js js/app.js -c -m --comments false -o js/app.min.js",
+    "test": "node --test tests/",
+    "start": "python3 -m http.server 8080"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "terser": "^5.51.2"
+  }
+}
